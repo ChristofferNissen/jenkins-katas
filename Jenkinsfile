@@ -25,9 +25,11 @@ pipeline {
             archiveArtifacts 'app/build/libs/'
           }
           post {
-            sh 'ls -lah'
-            deleteDir()
-            sh 'ls -lah'
+            always {
+              sh 'ls -lah'
+              deleteDir()
+              sh 'ls -lah'
+            }
           }
         }
 
