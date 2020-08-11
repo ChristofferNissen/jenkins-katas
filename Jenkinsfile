@@ -1,6 +1,11 @@
 pipeline {
   agent any
   stages {
+    stage('clone down'){
+      steps {
+
+      }
+    }
     stage('Parallel execution') {
       parallel {
         stage('Say Hello') {
@@ -14,11 +19,15 @@ pipeline {
             docker {
               image 'gradle:jdk11'
             }
-
           }
           steps {
             sh 'ci/build-app.sh'
             archiveArtifacts 'app/build/libs/'
+          }
+          post {
+            sh 'ls -lah'
+            deleteDir()
+            sh 'ls -lah'
           }
         }
 
