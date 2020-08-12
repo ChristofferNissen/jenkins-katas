@@ -92,8 +92,9 @@ pipeline {
         skipDefaultCheckout()
       }
       when {
-        not {
-          branch "dev/*"
+        any {
+          branch "master"
+          changeRequest()
         }
       }
       steps {
