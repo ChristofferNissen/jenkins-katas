@@ -92,7 +92,7 @@ pipeline {
         skipDefaultCheckout()
       }
       when {
-        any {
+        anyOf {
           branch "master"
           changeRequest()
         }
