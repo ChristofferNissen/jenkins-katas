@@ -86,5 +86,22 @@ pipeline {
         sh 'ci/push-docker.sh'
       }
     }
+
+    stage('component test'){
+      options {
+        skipDefaultCheckout()
+      }
+      when {
+        not {
+          branch "dev/*"
+        }
+      }
+      steps {
+        unstash 'code' //unstash the repository code
+        sh 'ci/component-test.sh'
+      }
+
+    }
+
   }
 }
