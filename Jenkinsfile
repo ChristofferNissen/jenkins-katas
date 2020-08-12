@@ -4,6 +4,7 @@ pipeline {
     docker_username='stifstof'
   }
   stages {
+
     stage('clone down'){
         agent {
           label 'host'
@@ -12,8 +13,10 @@ pipeline {
           stash name: "code", excludes: ".git"
         }  
     }
+
     stage('Parallel execution') {
       parallel {
+
         stage('Say Hello') {
           options {
             skipDefaultCheckout()
@@ -22,7 +25,8 @@ pipeline {
             sh 'echo "Hello, World!"'
           }
         }
-        stage('Build app') {
+        
+        stage('Build app outside container') {
           options {
             skipDefaultCheckout()
           }
@@ -46,6 +50,7 @@ pipeline {
             }
           }
         }
+
         stage('Test') {
           options {
             skipDefaultCheckout()
@@ -71,7 +76,8 @@ pipeline {
         }
       }
     }
-    stage('docker push') {
+
+    stage('docker build & push') {
       options {
         skipDefaultCheckout()
       }
