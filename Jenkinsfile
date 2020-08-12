@@ -59,6 +59,11 @@ pipeline {
       }
     }
     stage('docker push') {
+      agent {
+        docker {
+          image 'gradle:jdk11'
+        }
+      }
       environment {
         DOCKERCREDS = credentials('docker_login') //use the credentials just created in this stage
       }
