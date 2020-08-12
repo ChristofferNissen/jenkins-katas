@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+    docker_username='stifstof'
+  }
   stages {
     stage('clone down'){
         agent {
@@ -59,6 +62,9 @@ pipeline {
       }
     }
     stage('docker push') {
+      options {
+        skipDefaultCheckout()
+      }
       environment {
         DOCKERCREDS = credentials('docker_login') //use the credentials just created in this stage
       }
