@@ -14,9 +14,6 @@ pipeline {
     }
     stage('Parallel execution') {
       parallel {
-        options {
-            skipDefaultCheckout()
-          }
         stage('Say Hello') {
           steps {
             sh 'echo "Hello, World!"'
@@ -78,8 +75,6 @@ pipeline {
         DOCKERCREDS = credentials('docker_login') //use the credentials just created in this stage
       }
       steps {
-        sh 'echo $DOCKERCREDS_PSW'
-        sh 'echo $DOCKERCREDS_USR'
         unstash 'code' //unstash the repository code
         sh 'ci/build-docker.sh'
         sh 'echo $DOCKERCREDS_PSW | docker login -u $DOCKERCREDS_USR --password-stdin' //login to docker hub with the credentials above
