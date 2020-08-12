@@ -14,10 +14,10 @@ pipeline {
     }
     stage('Parallel execution') {
       parallel {
-        options {
-          skipDefaultCheckout()
-        }
         stage('Say Hello') {
+          options {
+            skipDefaultCheckout()
+          }
           steps {
             sh 'echo "Hello, World!"'
           }
@@ -59,8 +59,7 @@ pipeline {
             sh 'ci/unit-test-app.sh'
             junit 'app/build/test-results/test/TEST-*.xml'
           }
-        }
-        post {
+          post {
             always {
               // cleanup 
               sh 'ls -lah'
@@ -68,6 +67,7 @@ pipeline {
               sh 'ls -lah'
             }
           }
+        }
       }
     }
     stage('docker push') {
