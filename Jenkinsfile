@@ -66,7 +66,8 @@ pipeline {
           }
         }
       }
-      stage('docker push') {
+    }
+    stage('docker push') {
         options {
           skipDefaultCheckout()
         }
@@ -80,7 +81,5 @@ pipeline {
           //sh 'ci/push-docker.sh'
         }
       }
-    }
-    
   }
 }
